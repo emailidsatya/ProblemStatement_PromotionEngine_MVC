@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+    var CartItemCount = (List<CartModel>)Session["cart"];
+}
+
+@using ProblemStatement_PromotionEngine.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Shopping</title>
+</head>
+<body>
+
+    <h3>Products List</h3>
+    <table cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Buy</th>
+        </tr>
+        @foreach (ProductModel product in ViewBag.productList)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.ProductName</td>
+                <td>@product.Price</td>
+                <td align="center">
+                    <a href="@Url.Action("AddToCart", "Shopping", new { id = product.Id })">Add to Cart</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <h4>Item In Cart</h4>
+    <p>
+        @if (CartItemCount != null)
+        {
+            @CartItemCount.Count.ToString();
+        }
+
+        <a href="@Url.Action("Index", "Cart")">View Cart</a>
+    </p>
+
+</body>
+</html>
